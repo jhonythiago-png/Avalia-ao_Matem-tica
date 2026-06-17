@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>📚 Resumo – Matemática</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f9ff; color: #1e293b; padding-bottom: 80px; }
+
+.top-nav { background: #1e3a5f; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.top-nav a { color: #93c5fd; font-size: 0.8rem; font-weight: 700; text-decoration: none; background: rgba(37,99,235,0.25); border: 1px solid rgba(37,99,235,0.4); padding: 5px 12px; border-radius: 20px; }
+.top-nav span { color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+
+.hero { background: linear-gradient(145deg, #1e3a5f, #2563eb, #3b82f6); padding: 32px 20px 24px; text-align: center; position: relative; overflow: hidden; }
+.hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.1), transparent 60%); pointer-events: none; }
+.hero-emoji { font-size: 3rem; display: block; margin-bottom: 10px; position: relative; }
+.hero h1 { font-size: 1.6rem; font-weight: 900; color: white; line-height: 1.2; position: relative; }
+.hero h2 { font-size: 0.95rem; color: rgba(255,255,255,0.75); font-weight: 400; margin-top: 6px; position: relative; }
+.hero-pill { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 0.72rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-top: 12px; position: relative; }
+
+.print-btn-wrap { text-align: right; padding: 10px 16px 0; }
+.print-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: transparent; border: 1px solid rgba(37,99,235,0.35); border-radius: 20px; font-size: 0.78rem; font-family: inherit; font-weight: 600; color: rgba(37,99,235,0.7); cursor: pointer; }
+
+.nav-dots { display: flex; justify-content: center; gap: 6px; padding: 12px 10px; background: #f0f9ff; border-bottom: 1px solid #dbeafe; flex-wrap: wrap; position: sticky; top: 41px; z-index: 40; }
+.nav-dot { background: none; border: 2px solid #93c5fd; color: #2563eb; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+.nav-dot.active { background: #2563eb; color: white; border-color: #2563eb; }
+
+.section { padding: 20px 16px 8px; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.section-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.s1 { background: linear-gradient(135deg,#2563eb,#3b82f6); }
+.s2 { background: linear-gradient(135deg,#059669,#10b981); }
+.s3 { background: linear-gradient(135deg,#d97706,#f59e0b); }
+.s4 { background: linear-gradient(135deg,#dc2626,#f43f5e); }
+.s5 { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+.s6 { background: linear-gradient(135deg,#0891b2,#06b6d4); }
+.section-title { font-size: 1.05rem; font-weight: 800; color: #1e293b; }
+.section-sub { font-size: 0.74rem; color: #64748b; margin-top: 2px; }
+
+.card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(37,99,235,0.07); border: 1px solid #dbeafe; }
+.tip { background: linear-gradient(135deg,#eff6ff,#f0fdf4); border-left: 4px solid #3b82f6; border-radius: 0 12px 12px 0; padding: 12px 14px; margin-bottom: 12px; font-size: 0.88rem; line-height: 1.6; }
+.tip .tip-title { font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.tip strong { color: #1d4ed8; }
+
+.rule-box { background: white; border: 2px solid #2563eb; border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.rule-title { font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.rule-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #dbeafe; }
+.rule-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.rule-tag { color: white; font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.bg-blue   { background: #2563eb; }
+.bg-green  { background: #059669; }
+.bg-amber  { background: #d97706; }
+.bg-red    { background: #dc2626; }
+.bg-purple { background: #7c3aed; }
+.bg-cyan   { background: #0891b2; }
+.rule-text { font-size: 0.88rem; line-height: 1.55; }
+.rule-text em { color: #2563eb; font-style: normal; font-weight: 700; }
+.rule-text small { display: block; color: #94a3b8; font-size: 0.78rem; margin-top: 2px; }
+
+.example-box { background: #f8fafc; border: 1.5px solid #dbeafe; border-radius: 12px; padding: 12px 14px; margin-bottom: 12px; font-size: 0.88rem; line-height: 1.7; }
+.ex-label { font-size: 0.68rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.ex-correct { color: #059669; font-weight: 700; }
+.ex-wrong   { color: #dc2626; text-decoration: line-through; }
+
+/* conta visual */
+.conta-box { background: #f8fafc; border: 1.5px solid #dbeafe; border-radius: 12px; padding: 14px; margin-bottom: 12px; font-family: 'Courier New', monospace; }
+.conta-line { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; color: #1e293b; padding: 3px 0; }
+.conta-line.result { border-top: 2px solid #2563eb; margin-top: 4px; padding-top: 8px; color: #2563eb; }
+.conta-op { width: 20px; text-align: center; color: #dc2626; font-weight: 900; }
+.conta-num { letter-spacing: 4px; }
+.decomp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.decomp-item { background: white; border: 1.5px solid #dbeafe; border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; }
+.decomp-item .d-label { font-size: 0.68rem; font-weight: 700; color: #2563eb; text-transform: uppercase; margin-bottom: 4px; }
+.decomp-item .d-calc { font-family: 'Courier New', monospace; color: #1e293b; font-weight: 700; }
+
+/* dinheiro grid */
+.money-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 10px; }
+.money-item { background: white; border: 1.5px solid #dbeafe; border-radius: 10px; padding: 10px 8px; text-align: center; }
+.money-val { font-size: 1rem; font-weight: 900; color: #1d4ed8; }
+.money-type { font-size: 0.68rem; color: #64748b; margin-top: 2px; }
+.money-emoji { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+/* reta numerica */
+.reta-box { background: #f8fafc; border: 1.5px solid #dbeafe; border-radius: 12px; padding: 14px; margin-bottom: 12px; overflow-x: auto; }
+.reta-label { font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase; margin-bottom: 10px; }
+.reta-svg-wrap { min-width: 280px; }
+
+.bottom-nav { display: flex; gap: 10px; padding: 0 14px; margin: 20px 0 10px; }
+.bottom-nav a { flex: 1; padding: 13px 10px; border-radius: 14px; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-home { background: rgba(37,99,235,0.1); border: 1.5px solid rgba(37,99,235,0.25); color: #2563eb !important; }
+.btn-next { background: linear-gradient(135deg,#2563eb,#3b82f6); color: white !important; }
+
+.divider { height: 1px; background: #dbeafe; margin: 8px 16px 0; }
+.progress-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #dbeafe; padding: 10px 16px; display: flex; align-items: center; gap: 12px; z-index: 20; }
+.pf-label { font-size: 0.75rem; font-weight: 700; color: #2563eb; white-space: nowrap; }
+.pf-bar { flex: 1; background: #dbeafe; border-radius: 10px; height: 8px; overflow: hidden; }
+.pf-fill { height: 100%; background: linear-gradient(90deg,#2563eb,#10b981); border-radius: 10px; transition: width 0.5s; width: 0%; }
+.pf-pct { font-size: 0.75rem; font-weight: 700; color: #94a3b8; }
+.credit { text-align: center; padding: 16px 14px 8px; font-size: 0.75rem; color: #bbb; }
+.credit strong { color: #60a5fa; }
+
+/* PRINT */
+.print-title-header { display: none; }
+@media print {
+  .top-nav, .print-btn-wrap, .nav-dots, .progress-footer, .bottom-nav, .hero, .credit { display: none !important; }
+  .print-title-header { display: block !important; text-align: center; padding: 0 0 12px; border-bottom: 2px solid #1e3a5f; margin-bottom: 16px; }
+  html, body { background: white !important; color: #111 !important; font-size: 11pt; }
+  body * { background-color: transparent !important; background-image: none !important; color: #111 !important; box-shadow: none !important; }
+  .section { padding: 10px 0 4px !important; }
+  .section-icon { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .section-title { font-size: 12pt !important; font-weight: 700 !important; }
+  .card { border: 1px solid #bbb !important; break-inside: avoid !important; page-break-inside: avoid !important; margin-bottom: 8px !important; }
+  .rule-box { border: 1.5px solid #555 !important; break-inside: avoid !important; }
+  .rule-tag { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .tip { border-left: 3px solid #2563eb !important; break-inside: avoid !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .example-box, .conta-box, .reta-box { border: 1px solid #ccc !important; break-inside: avoid !important; }
+  .divider { display: none !important; }
+  #sec2, #sec3, #sec4, #sec5, #sec6 { page-break-before: always !important; }
+  @page { margin: 1.5cm; size: A4; }
+}
+</style>
+</head>
+<body>
+
+<div class="print-title-header">
+  <div style="font-size:14pt;font-weight:900;color:#1e3a5f;">Matemática — Guia de Estudos</div>
+  <div style="font-size:10pt;color:#555;margin-top:4px;">Capítulos 4 e 5 · Desenvolvido por Jhony Beraldo</div>
+</div>
+
+<div class="top-nav">
+  <a href="index.html">🏠 Início</a>
+  <span>📚 Resumo — Matemática</span>
+  <div style="width:70px;"></div>
+</div>
+
+<div class="hero">
+  <span class="hero-emoji">🔢</span>
+  <h1>Matemática</h1>
+  <h2>Guia de Estudos — Capítulos 4 e 5</h2>
+  <div class="hero-pill">📖 Leia tudo antes de fazer a prova!</div>
+</div>
+
+<div class="print-btn-wrap">
+  <button class="print-btn" onclick="window.print()">🖨️ Imprimir Resumo</button>
+</div>
+
+<div class="nav-dots">
+  <button class="nav-dot active" data-target="sec1">➕ Adição</button>
+  <button class="nav-dot" data-target="sec2">➖ Subtração</button>
+  <button class="nav-dot" data-target="sec3">🔀 Decomp.</button>
+  <button class="nav-dot" data-target="sec4">📏 Reta Num.</button>
+  <button class="nav-dot" data-target="sec5">💰 Dinheiro</button>
+  <button class="nav-dot" data-target="sec6">📝 Problemas</button>
+</div>
+
+<!-- SEC 1 ADIÇÃO -->
+<div class="section" id="sec1">
+  <div class="section-header">
+    <div class="section-icon s1">➕</div>
+    <div><div class="section-title">Adição e Fatos Básicos</div><div class="section-sub">Capítulo 4 — Somar números</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 O que é adição?</div>
+    Adição é a operação de <strong>juntar</strong> duas ou mais quantidades. O resultado se chama <strong>soma</strong> ou <strong>total</strong>.
+    <br>Sinal: <strong>+</strong> (mais)
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">📐 Partes da adição</div>
+    <div class="rule-row"><span class="rule-tag bg-blue">PARCELA</span><div class="rule-text">Cada número que está sendo somado.<small>Ex: <em>2.390</em> + <em>1.780</em> → as duas parcelas</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-green">SOMA</span><div class="rule-text">O resultado da adição.<small>Ex: 2.390 + 1.780 = <em>4.170</em> → a soma</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-amber">ALGORITMO</span><div class="rule-text">Forma organizada de calcular em coluna (unidade sob unidade, dezena sob dezena...).<small>Quando a soma de uma coluna passa de 9, "vai 1" para a próxima!</small></div></div>
+  </div>
+
+  <div class="conta-box">
+    <div class="ex-label">Exemplo — adição em coluna</div>
+    <div class="conta-line"><span class="conta-op"> </span><span class="conta-num">2.390</span></div>
+    <div class="conta-line"><span class="conta-op">+</span><span class="conta-num">1.780</span></div>
+    <div class="conta-line result"><span class="conta-op">=</span><span class="conta-num">4.170</span></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">🧠 Macete</div>
+    Sempre organize os números <strong>um embaixo do outro</strong>, alinhando pelas unidades. Some coluna por coluna da direita para a esquerda!
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- SEC 2 SUBTRAÇÃO -->
+<div class="section" id="sec2">
+  <div class="section-header">
+    <div class="section-icon s2">➖</div>
+    <div><div class="section-title">Subtração e Fatos Fundamentais</div><div class="section-sub">Capítulo 5 — Tirar, comparar, completar</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 O que é subtração?</div>
+    Subtração é a operação de <strong>tirar</strong> uma quantidade de outra, ou descobrir a <strong>diferença</strong> entre dois números.
+    <br>Sinal: <strong>−</strong> (menos)
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">📐 Partes da subtração</div>
+    <div class="rule-row"><span class="rule-tag bg-blue">MINUENDO</span><div class="rule-text">O número maior — de onde vamos tirar.<small>Ex: <em>4.320</em> − 1.875 → minuendo é 4.320</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-red">SUBTRAENDO</span><div class="rule-text">O número que vai ser tirado.<small>Ex: 4.320 − <em>1.875</em> → subtraendo é 1.875</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-green">DIFERENÇA</span><div class="rule-text">O resultado da subtração.<small>Ex: 4.320 − 1.875 = <em>2.445</em> → diferença é 2.445</small></div></div>
+  </div>
+
+  <div class="card">
+    <div class="rule-title" style="color:#059669;">✅ Quando NÃO precisa pedir emprestado</div>
+    <div style="font-size:0.85rem;color:#374151;margin-bottom:12px;">O número de cima é maior em todas as colunas. Só subtrair normalmente!</div>
+
+    <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:14px;padding:14px;text-align:center;">
+      <div style="font-size:0.72rem;color:#059669;font-weight:800;margin-bottom:10px;text-transform:uppercase;">Exemplo: 552 − 311</div>
+      <div style="display:inline-grid;grid-template-columns:repeat(4,44px);gap:4px;text-align:center;">
+        <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">C</div>
+        <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">D</div>
+        <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">U</div>
+        <div style="border-bottom:1px solid #ddd;"></div>
+
+        <div style="font-size:1.3rem;font-weight:900;color:#1e293b;padding:4px 0;">5</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#1e293b;padding:4px 0;">5</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#1e293b;padding:4px 0;">2</div>
+        <div style="padding:4px 0;"></div>
+
+        <div style="font-size:1.3rem;font-weight:900;color:#dc2626;padding:4px 0;">3</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#dc2626;padding:4px 0;">1</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#dc2626;padding:4px 0;">1</div>
+        <div style="font-size:1rem;color:#dc2626;font-weight:900;padding:4px 0;">−</div>
+
+        <div style="border-top:2px solid #059669;grid-column:span 4;"></div>
+
+        <div style="font-size:1.3rem;font-weight:900;color:#059669;padding:4px 0;">2</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#059669;padding:4px 0;">4</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#059669;padding:4px 0;">1</div>
+        <div style="font-size:0.9rem;color:#059669;padding:4px 0;">✅</div>
+      </div>
+      <div style="margin-top:12px;font-size:0.83rem;color:#374151;line-height:1.9;text-align:left;background:white;border-radius:10px;padding:10px;">
+        👉 Unidades: <strong>2 − 1 = 1</strong> ✅<br>
+        👉 Dezenas: <strong>5 − 1 = 4</strong> ✅<br>
+        👉 Centenas: <strong>5 − 3 = 2</strong> ✅<br>
+        <span style="color:#059669;">Todos os de cima são maiores — sem dificuldade!</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="rule-title" style="color:#dc2626;">⚠️ Quando PRECISA pedir emprestado</div>
+    <div style="font-size:0.85rem;color:#374151;margin-bottom:12px;">O número de cima é <strong>menor</strong> que o de baixo em alguma coluna. Aí precisa pedir ajuda da coluna vizinha!</div>
+
+    <div style="background:#fff7ed;border:2px solid #fed7aa;border-radius:14px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:0.72rem;color:#ea580c;font-weight:800;margin-bottom:8px;text-transform:uppercase;">🍎 Imagine assim:</div>
+      <div style="font-size:0.88rem;color:#1e293b;line-height:1.8;">
+        Você tem <strong>3 balas</strong> e quer dar <strong>7 balas</strong> para um amigo.<br>
+        <strong>Não dá!</strong> 3 é menor que 7.<br>
+        Então você vai até a <strong>caixinha ao lado</strong> e pede emprestado.<br>
+        A caixinha tem <strong>dezenas</strong> — ela te dá <strong>1 dezena = 10 balas</strong>.<br>
+        Agora você tem <strong>3 + 10 = 13 balas</strong> e consegue dar 7!<br>
+        13 − 7 = <strong>6</strong> ✅
+      </div>
+    </div>
+
+    <div style="background:#fff1f2;border:2px solid #fecaca;border-radius:14px;padding:14px;">
+      <div style="font-size:0.72rem;color:#dc2626;font-weight:800;margin-bottom:10px;text-transform:uppercase;">Exemplo: 43 − 17</div>
+
+      <!-- PASSO 1 -->
+      <div style="background:white;border-radius:10px;padding:10px;margin-bottom:8px;border-left:4px solid #f59e0b;">
+        <div style="font-size:0.7rem;font-weight:800;color:#d97706;margin-bottom:6px;">PASSO 1 — Olha as unidades</div>
+        <div style="display:inline-grid;grid-template-columns:repeat(3,44px);gap:4px;text-align:center;">
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">D</div>
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">U</div>
+          <div style="border-bottom:1px solid #ddd;"></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#1e293b;">4</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;background:#fef2f2;border-radius:6px;">3</div>
+          <div></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">1</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">7</div>
+          <div style="font-size:0.9rem;color:#dc2626;font-weight:900;">−</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.83rem;color:#dc2626;">❌ 3 não pode tirar 7! Precisa pedir emprestado!</div>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div style="background:white;border-radius:10px;padding:10px;margin-bottom:8px;border-left:4px solid #2563eb;">
+        <div style="font-size:0.7rem;font-weight:800;color:#2563eb;margin-bottom:6px;">PASSO 2 — Pede 1 emprestado da dezena</div>
+        <div style="display:inline-grid;grid-template-columns:repeat(3,44px);gap:4px;text-align:center;">
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">D</div>
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">U</div>
+          <div style="border-bottom:1px solid #ddd;"></div>
+          <div style="position:relative;display:inline-block;">
+            <div style="font-size:1.3rem;font-weight:900;color:#aaa;text-decoration:line-through;">4</div>
+            <div style="font-size:0.85rem;font-weight:900;color:#2563eb;position:absolute;top:-8px;right:-8px;">³</div>
+          </div>
+          <div style="font-size:1.3rem;font-weight:900;color:#2563eb;background:#eff6ff;border-radius:6px;">13</div>
+          <div></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">1</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">7</div>
+          <div style="font-size:0.9rem;color:#dc2626;font-weight:900;">−</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.83rem;color:#2563eb;line-height:1.6;">
+          ✅ A dezena era 4, ficou <strong>3</strong> (emprestou 1)<br>
+          ✅ As unidades eram 3, viraram <strong>13</strong> (recebeu 10)
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div style="background:white;border-radius:10px;padding:10px;border-left:4px solid #059669;">
+        <div style="font-size:0.7rem;font-weight:800;color:#059669;margin-bottom:6px;">PASSO 3 — Agora calcula normalmente!</div>
+        <div style="display:inline-grid;grid-template-columns:repeat(3,44px);gap:4px;text-align:center;">
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">D</div>
+          <div style="font-size:0.65rem;color:#888;border-bottom:1px solid #ddd;padding-bottom:4px;">U</div>
+          <div style="border-bottom:1px solid #ddd;"></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#1e293b;">3</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#1e293b;">13</div>
+          <div></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">1</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#dc2626;">7</div>
+          <div style="font-size:0.9rem;color:#dc2626;font-weight:900;">−</div>
+          <div style="border-top:2px solid #059669;grid-column:span 3;"></div>
+          <div style="font-size:1.3rem;font-weight:900;color:#059669;">2</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#059669;">6</div>
+          <div style="font-size:0.9rem;color:#059669;">✅</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.83rem;color:#374151;line-height:1.7;">
+          👉 Unidades: <strong>13 − 7 = 6</strong> ✅<br>
+          👉 Dezenas: <strong>3 − 1 = 2</strong> ✅<br>
+          <strong style="color:#059669;">Resultado: 43 − 17 = 26</strong> 🎉
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">🧠 Resumo do empréstimo em 3 passos</div>
+    <strong>1.</strong> O de cima é menor que o de baixo? Vai pedir emprestado! 🙋<br>
+    <strong>2.</strong> Pede 1 da coluna ao lado → aquela coluna perde 1, a sua ganha 10 🔄<br>
+    <strong>3.</strong> Agora o de cima ficou maior → pode subtrair normalmente! ✅
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- SEC 3 DECOMPOSIÇÃO -->
+<div class="section" id="sec3">
+  <div class="section-header">
+    <div class="section-icon s3">🔀</div>
+    <div><div class="section-title">Diferentes Procedimentos</div><div class="section-sub">Decomposição para calcular</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 O que é decomposição?</div>
+    Decompor é <strong>separar o número</strong> em centenas + dezenas + unidades para facilitar o cálculo.
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">📐 Como decompor</div>
+    <div class="rule-row"><span class="rule-tag bg-blue">552</span><div class="rule-text"><em>500</em> + <em>50</em> + <em>2</em><small>5 centenas + 5 dezenas + 2 unidades</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-red">− 311</span><div class="rule-text"><em>300</em> + <em>10</em> + <em>1</em><small>3 centenas + 1 dezena + 1 unidade</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-green">= 241</span><div class="rule-text"><em>200</em> + <em>40</em> + <em>1</em><small>Subtrai cada parte separadamente!</small></div></div>
+  </div>
+
+  <div class="decomp-grid">
+    <div class="decomp-item">
+      <div class="d-label">Exemplo do livro</div>
+      <div class="d-calc">693 − 111<br>= 600+90+3<br>− 100+10+1<br>= 500+80+2<br>= <strong>582</strong></div>
+    </div>
+    <div class="decomp-item">
+      <div class="d-label">Exemplo do caderno</div>
+      <div class="d-calc">3.595 + 1.455<br>= 3.000+500+90+5<br>+ 1.000+400+50+5<br>= <strong>5.050</strong></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">🧠 Macete</div>
+    Separa o número em <strong>milhares + centenas + dezenas + unidades</strong>. Some ou subtraia cada parte. Depois some tudo de novo!
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- SEC 4 RETA NUMÉRICA -->
+<div class="section" id="sec4">
+  <div class="section-header">
+    <div class="section-icon s4">📏</div>
+    <div><div class="section-title">Reta Numérica</div><div class="section-sub">Visualizar adição e subtração</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 O que é reta numérica?</div>
+    A reta numérica é uma linha com números em ordem. Para <strong>somar</strong>, andamos para a <strong>direita</strong> (→). Para <strong>subtrair</strong>, andamos para a <strong>esquerda</strong> (←).
+  </div>
+
+  <div class="reta-box">
+    <div class="reta-label">Exemplo: 147 + 6 = 153</div>
+    <svg viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:350px;">
+      <line x1="10" y1="30" x2="290" y2="30" stroke="#2563eb" stroke-width="2"/>
+      <line x1="290" y1="30" x2="280" y2="24" stroke="#2563eb" stroke-width="2"/>
+      <line x1="290" y1="30" x2="280" y2="36" stroke="#2563eb" stroke-width="2"/>
+      <circle cx="40" cy="30" r="6" fill="#2563eb"/>
+      <text x="40" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e293b">147</text>
+      <circle cx="250" cy="30" r="6" fill="#10b981"/>
+      <text x="250" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#059669">153</text>
+      <path d="M 40 38 Q 145 55 250 38" stroke="#f59e0b" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+      <text x="145" y="55" text-anchor="middle" font-size="9" fill="#d97706">+ 6</text>
+      <text x="40" y="48" text-anchor="middle" font-size="8" fill="#2563eb">início</text>
+      <text x="250" y="48" text-anchor="middle" font-size="8" fill="#059669">chegada</text>
+    </svg>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">📐 Exemplos do caderno</div>
+    <div class="rule-row"><span class="rule-tag bg-blue">a)</span><div class="rule-text">147 + 6 = <em>153</em></div></div>
+    <div class="rule-row"><span class="rule-tag bg-blue">b)</span><div class="rule-text">203 + 7 = <em>210</em></div></div>
+    <div class="rule-row"><span class="rule-tag bg-blue">c)</span><div class="rule-text">302 + 8 = <em>310</em></div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">🧠 Macete</div>
+    Circule o número inicial na reta. Conte os saltos para a direita (adição) ou esquerda (subtração). Onde parar é o resultado!
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- SEC 5 SISTEMA MONETÁRIO -->
+<div class="section" id="sec5">
+  <div class="section-header">
+    <div class="section-icon s5">💰</div>
+    <div><div class="section-title">Sistema Monetário Brasileiro</div><div class="section-sub">Cédulas e moedas do Real</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 O dinheiro brasileiro</div>
+    A moeda do Brasil é o <strong>Real (R$)</strong>. Temos <strong>cédulas</strong> (papel) e <strong>moedas</strong> (metal). Usamos adição e subtração para calcular troco e valores!
+  </div>
+
+  <div class="money-grid">
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 2</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 5</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 10</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 20</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 50</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 100</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">💵</span><div class="money-val">R$ 200</div><div class="money-type">cédula</div></div>
+    <div class="money-item"><span class="money-emoji">🪙</span><div class="money-val">moedas</div><div class="money-type">centavos/reais</div></div>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">Exemplo do livro — Pedro recebeu R$ 25,00</div>
+    Pode receber com: R$ 20 + R$ 5 = <span class="ex-correct">R$ 25,00</span><br>
+    Ou também: R$ 10 + R$ 10 + R$ 5 = <span class="ex-correct">R$ 25,00</span><br>
+    Ou ainda: R$ 20 + R$ 2 + R$ 2 + R$ 1 = <span class="ex-correct">R$ 25,00</span>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">🧠 Macete</div>
+    Para formar um valor, prefira as <strong>cédulas maiores primeiro</strong>! Isso usa menos notas. Ex: R$ 25 → use R$20 + R$5 (só 2 notas!) em vez de 5 notas de R$5.
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- SEC 6 SITUAÇÕES-PROBLEMA -->
+<div class="section" id="sec6">
+  <div class="section-header">
+    <div class="section-icon s6">📝</div>
+    <div><div class="section-title">Situações-Problema</div><div class="section-sub">Como resolver problemas com adição e subtração</div></div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 Passo a passo para resolver</div>
+    <strong>1.</strong> Leia o problema com atenção.<br>
+    <strong>2.</strong> Identifique os números do problema.<br>
+    <strong>3.</strong> Descubra a operação: juntar = <strong>adição</strong> · tirar/faltar/diferença = <strong>subtração</strong>.<br>
+    <strong>4.</strong> Calcule e escreva a resposta completa.
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">📐 Palavras-chave</div>
+    <div class="rule-row"><span class="rule-tag bg-blue">ADIÇÃO</span><div class="rule-text">ao todo · no total · juntos · somando · produziram<small>Ex: "quantos ao todo?" → soma os números</small></div></div>
+    <div class="rule-row"><span class="rule-tag bg-red">SUBTRAÇÃO</span><div class="rule-text">faltam · restam · sobraram · diferença · a menos<small>Ex: "quantos faltam?" → subtração</small></div></div>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">Exemplo do caderno — problema de subtração</div>
+    <strong>Problema:</strong> Um avião saiu com 4.320 litros de combustível e gastou 1.875 litros. Quantos litros sobraram?<br><br>
+    <strong>Operação:</strong> sobraram → subtração<br>
+    4.320 − 1.875 = <span class="ex-correct">2.445 litros</span>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">Exemplo do caderno — problema de adição</div>
+    <strong>Problema:</strong> Uma fábrica produziu 2.390 caixas na 1ª semana e 1.780 na 2ª. Quantas ao total?<br><br>
+    <strong>Operação:</strong> ao total → adição<br>
+    2.390 + 1.780 = <span class="ex-correct">4.170 caixas</span>
+  </div>
+
+  <div class="card">
+    <div class="rule-title">🧠 Como saber se é adição ou subtração?</div>
+
+    <div style="background:#eff6ff;border-radius:12px;padding:12px 14px;margin-bottom:10px;border-left:4px solid #2563eb;">
+      <div style="font-size:0.72rem;font-weight:800;color:#2563eb;text-transform:uppercase;margin-bottom:8px;">➕ É ADIÇÃO quando...</div>
+      <div style="font-size:0.87rem;color:#1e293b;line-height:1.8;">
+        Você precisa <strong>juntar</strong> ou <strong>somar</strong> coisas.<br>
+        🔑 Palavras que aparecem: <em style="color:#2563eb;">total · ao todo · juntos · produziram · recebeu e mais</em><br><br>
+        🗣️ <em>"A fábrica fez 2.390 caixas <strong>e mais</strong> 1.780. Quantas <strong>ao todo</strong>?"</em><br>
+        → Você está <strong>juntando</strong> as duas semanas = <strong>ADIÇÃO</strong>
+      </div>
+    </div>
+
+    <div style="background:#fff1f2;border-radius:12px;padding:12px 14px;border-left:4px solid #dc2626;">
+      <div style="font-size:0.72rem;font-weight:800;color:#dc2626;text-transform:uppercase;margin-bottom:8px;">➖ É SUBTRAÇÃO quando...</div>
+      <div style="font-size:0.87rem;color:#1e293b;line-height:1.8;">
+        Você precisa <strong>tirar</strong>, ver o que <strong>sobrou</strong> ou o que ainda <strong>falta</strong>.<br>
+        🔑 Palavras que aparecem: <em style="color:#dc2626;">faltam · restam · sobraram · diferença · gastou · a menos</em><br><br>
+        🗣️ <em>"O avião tinha 4.320 litros e <strong>gastou</strong> 1.875. Quantos <strong>sobraram</strong>?"</em><br>
+        → Você está <strong>tirando</strong> o que gastou = <strong>SUBTRAÇÃO</strong>
+      </div>
+    </div>
+
+    <div style="background:#f0fdf4;border-radius:12px;padding:10px 14px;margin-top:10px;border-left:4px solid #059669;">
+      <div style="font-size:0.82rem;color:#1e293b;line-height:1.7;">
+        💡 <strong>Dica de ouro:</strong> Pergunte sempre — <em>"estou <strong>juntando</strong> ou <strong>tirando</strong>?"</em><br>
+        Juntando = <strong style="color:#2563eb;">➕ adição</strong> · Tirando = <strong style="color:#dc2626;">➖ subtração</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="index.html" class="btn-home">🏠 Voltar ao Início</a>
+  <a href="nivel1_basico.html" class="btn-next">⭐ Nível 1 →</a>
+</div>
+
+<div style="height:60px;"></div>
+<div class="progress-footer">
+  <div class="pf-label">📖 Progresso</div>
+  <div class="pf-bar"><div class="pf-fill" id="pfFill"></div></div>
+  <div class="pf-pct" id="pfPct">0%</div>
+</div>
+
+<div class="credit">Desenvolvido por <strong>Jhony Beraldo</strong></div>
+
+<script>
+var sections = ['sec1','sec2','sec3','sec4','sec5','sec6'];
+document.querySelectorAll('.nav-dot[data-target]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.nav-dot').forEach(function(d) { d.classList.remove('active'); });
+    btn.classList.add('active');
+    var target = document.getElementById(btn.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+function updateProgress() {
+  var pct = Math.min(100, Math.round(((window.scrollY + window.innerHeight) / document.body.scrollHeight) * 100));
+  document.getElementById('pfFill').style.width = pct + '%';
+  document.getElementById('pfPct').textContent = pct + '%';
+  for (var i = sections.length - 1; i >= 0; i--) {
+    var el = document.getElementById(sections[i]);
+    if (el && window.scrollY >= el.offsetTop - 120) {
+      document.querySelectorAll('.nav-dot').forEach(function(d, idx) { d.classList.toggle('active', idx === i); });
+      break;
+    }
+  }
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+updateProgress();
+</script>
+</body>
+</html>

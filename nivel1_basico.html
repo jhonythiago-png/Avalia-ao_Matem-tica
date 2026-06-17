@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>⭐ Nível 1 – Básico – Matemática</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg,#f0f9ff,#fefce8,#f0fdf4); min-height: 100vh; padding-bottom: 40px; }
+.top-nav { background: #1e3a5f; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.top-nav a { color: #93c5fd; font-size: 0.8rem; font-weight: 700; text-decoration: none; background: rgba(37,99,235,0.25); border: 1px solid rgba(37,99,235,0.4); padding: 5px 12px; border-radius: 20px; }
+.top-nav .nav-title { font-size: 0.78rem; color: rgba(255,255,255,0.45); flex: 1; text-align: center; }
+.exam-header { background: white; border: 2px solid #2563eb; border-radius: 16px; padding: 16px; margin: 12px 14px 16px; }
+.eh-title { text-align: center; font-size: 0.95rem; font-weight: 900; color: #2563eb; margin-bottom: 14px; }
+.eh-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.eh-field label { display: block; font-size: 0.68rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.eh-field input { width: 100%; border: none; border-bottom: 2px solid #2563eb; padding: 5px 2px; font-size: 0.9rem; font-family: inherit; outline: none; background: transparent; color: #333; }
+.eh-nota { border-bottom: 2px solid #2563eb; padding: 5px 2px; font-size: 0.85rem; color: #bbb; font-style: italic; min-height: 28px; }
+.header { text-align: center; padding: 22px 16px 14px; background: linear-gradient(135deg,#1e3a5f,#2563eb); margin-bottom: 18px; }
+.level-tag { display: inline-block; background: rgba(255,255,255,0.25); color: white; font-size: 0.72rem; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.header h1 { font-size: 1.4rem; font-weight: 900; color: white; }
+.header p  { font-size: 0.82rem; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.wrap { padding: 0 14px; }
+.print-btn-wrap { text-align: right; margin-bottom: 12px; }
+.print-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: transparent; border: 1px solid rgba(37,99,235,0.35); border-radius: 20px; font-size: 0.78rem; font-family: inherit; font-weight: 600; color: rgba(37,99,235,0.6); cursor: pointer; }
+.score-bar { background: white; border-radius: 14px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(37,99,235,0.08); }
+.score-label { font-size: 0.82rem; color: #888; }
+.score-num { font-size: 1.4rem; font-weight: 900; color: #2563eb; }
+.card { background: white; border-radius: 18px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 12px rgba(37,99,235,0.07); border-left: 5px solid #2563eb; }
+.q-num { display: inline-block; background: #2563eb; color: white; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center; font-size: 0.85rem; font-weight: 800; margin-bottom: 8px; }
+.q-type { font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 6px; }
+.q-text { font-size: 0.97rem; color: #333; margin-bottom: 14px; line-height: 1.6; }
+.q-text strong { color: #2563eb; }
+.options { display: flex; flex-direction: column; gap: 9px; }
+.opt-btn { border: 2px solid #dbeafe; background: #f8fafc; border-radius: 12px; padding: 12px 14px; font-size: 0.92rem; font-family: inherit; cursor: pointer; text-align: left; color: #374151; transition: transform 0.1s; line-height: 1.4; }
+.opt-btn:active { transform: scale(0.97); }
+.opt-btn.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+.opt-btn.wrong   { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+.opt-btn.disabled { pointer-events: none; }
+.feedback { display: none; margin-top: 10px; padding: 12px 13px; border-radius: 10px; font-size: 0.88rem; line-height: 1.6; }
+.feedback.show { display: block; }
+.feedback.ok  { background: #d4edda; color: #155724; }
+.feedback.nok { background: #f8d7da; color: #721c24; }
+.fb-answer { font-weight: 800; display: block; margin-bottom: 4px; }
+.fb-tip    { font-size: 0.83rem; opacity: 0.85; }
+.finish-btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg,#1e3a5f,#2563eb); color: white; border: none; border-radius: 16px; font-size: 1.1rem; font-family: inherit; font-weight: 800; cursor: pointer; margin-top: 6px; }
+.result-panel { display: none; background: white; border-radius: 20px; padding: 28px 20px; text-align: center; box-shadow: 0 4px 20px rgba(37,99,235,0.12); margin-top: 20px; }
+.result-panel.show { display: block; }
+.result-big { font-size: 4rem; margin-bottom: 10px; }
+.result-grade { font-size: 3.5rem; font-weight: 900; background: linear-gradient(135deg,#2563eb,#10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 8px 0 2px; }
+.result-grade-label { font-size: 0.75rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+.result-grade-pts { font-size: 0.75rem; opacity: 0.55; margin-bottom: 10px; }
+.result-msg { font-size: 1.1rem; font-weight: 800; color: #333; margin-bottom: 8px; }
+.result-score { font-size: 0.88rem; color: #888; margin-bottom: 16px; }
+.result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.retry-btn { flex: 1; min-width: 130px; background: linear-gradient(135deg,#a78bfa,#60a5fa); color: white; border: none; border-radius: 14px; padding: 13px 16px; font-size: 0.9rem; font-family: inherit; font-weight: 700; cursor: pointer; }
+.gabarito-link { flex: 1; min-width: 130px; background: rgba(37,99,235,0.1); border: 1.5px solid rgba(37,99,235,0.25); color: #2563eb !important; border-radius: 14px; padding: 13px 16px; text-decoration: none; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.bottom-nav { display: flex; gap: 10px; padding: 0; margin: 20px 0 10px; }
+.bottom-nav a { flex: 1; padding: 13px 10px; border-radius: 14px; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-prev { background: rgba(37,99,235,0.08); border: 1.5px solid rgba(37,99,235,0.2); color: #2563eb !important; }
+.btn-next { background: linear-gradient(135deg,#2563eb,#3b82f6); color: white !important; }
+.btn-home-only { background: rgba(37,99,235,0.08); border: 1.5px solid rgba(37,99,235,0.2); color: #2563eb !important; flex: 0.6; }
+.credit { text-align: center; padding: 16px 14px 8px; font-size: 0.75rem; color: #bbb; }
+.credit strong { color: #60a5fa; }
+@media print {
+  .top-nav,.print-btn-wrap,.score-bar,.finish-btn,.result-panel,.bottom-nav { display: none !important; }
+  html, body { background: white !important; }
+  body * { background-color: transparent !important; background-image: none !important; color: #111 !important; box-shadow: none !important; }
+  .exam-header { border: 2px solid #555 !important; }
+  .card { border: 1px solid #ccc !important; break-inside: avoid !important; }
+  .opt-btn { border: 1.5px solid #bbb !important; margin-bottom: 4px !important; }
+  .feedback { display: none !important; }
+  .header { background: #1e3a5f !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  @page { margin: 1.5cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html">🏠 Início</a>
+  <span class="nav-title">⭐ Nível 1 — Básico</span>
+  <div style="width:70px;"></div>
+</div>
+
+<div class="exam-header">
+  <div class="eh-title">📝 Preencha antes de começar</div>
+  <div class="eh-grid">
+    <div class="eh-field"><label>Nome</label><input type="text" placeholder="Seu nome aqui"></div>
+    <div class="eh-field"><label>Data</label><input type="date"></div>
+    <div class="eh-field"><label>Turma</label><input type="text" placeholder="Ex: 4º A"></div>
+    <div class="eh-field"><label>Nota</label><div class="eh-nota">Será preenchida</div></div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="level-tag">Nível 1 — Básico</div>
+  <h1>Matemática</h1>
+  <p>Capítulos 4 e 5 · 12 questões</p>
+</div>
+
+<div class="wrap">
+<div class="print-btn-wrap"><button class="print-btn" onclick="window.print()">🖨️ Imprimir Avaliação</button></div>
+<div class="score-bar">
+  <span class="score-label">Pontos 🌟</span>
+  <span class="score-num" id="scoreDisplay">0 / 12</span>
+</div>
+
+<!-- Q1 -->
+<div class="card" id="q1">
+  <div class="q-num">1</div><div class="q-type">Adição — fatos básicos</div>
+  <div class="q-text">Uma fábrica produziu <strong>2.390</strong> caixas na 1ª semana e <strong>1.780</strong> na 2ª semana. Quantas caixas foram produzidas <strong>ao total</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q1" data-correct="false" data-msg="Errado! Você subtraiu em vez de somar. 'Ao total' = adição!" data-tip="💡 Sacada: 'ao total' = juntar os dois valores = adição!">610 caixas</button>
+    <button class="opt-btn" data-q="q1" data-correct="true"  data-msg="Correto! 2.390 + 1.780 = 4.170 caixas! As duas semanas juntas." data-tip="">4.170 caixas</button>
+    <button class="opt-btn" data-q="q1" data-correct="false" data-msg="Errado! Confira: 2.390 + 1.780. Some as unidades: 0+0=0, dezenas: 9+8=17 (vai 1), centenas: 3+7+1=11 (vai 1), milhares: 2+1+1=4. Resultado: 4.170!" data-tip="💡 Sacada: some coluna por coluna da direita para a esquerda!">3.170 caixas</button>
+    <button class="opt-btn" data-q="q1" data-correct="false" data-msg="Errado! Cuidado ao somar as dezenas: 9+8=17, anota 7 e vai 1 para as centenas." data-tip="💡 Sacada: quando a soma passa de 9, 'vai 1' para a próxima coluna!">4.070 caixas</button>
+  </div>
+  <div class="feedback" id="fb-q1"></div>
+</div>
+
+<!-- Q2 -->
+<div class="card" id="q2">
+  <div class="q-num">2</div><div class="q-type">Subtração — fatos fundamentais</div>
+  <div class="q-text">Um avião saiu com <strong>4.320</strong> litros de combustível e gastou <strong>1.875</strong> litros na viagem. Quantos litros <strong>sobraram</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q2" data-correct="false" data-msg="Errado! 4.320 − 1.875 ≠ 6.195. Você somou em vez de subtrair. 'Sobraram' = subtração!" data-tip="💡 Sacada: 'sobraram' = tirar o que gastou = subtração!">6.195 litros</button>
+    <button class="opt-btn" data-q="q2" data-correct="false" data-msg="Errado! Confira a subtração: 4.320 − 1.875 = 2.445. Precisa pedir emprestado nas unidades e dezenas!" data-tip="💡 Sacada: 0 não tira 5 → pede emprestado da dezena!">2.555 litros</button>
+    <button class="opt-btn" data-q="q2" data-correct="true"  data-msg="Correto! 4.320 − 1.875 = 2.445 litros sobraram!" data-tip="">2.445 litros</button>
+    <button class="opt-btn" data-q="q2" data-correct="false" data-msg="Errado! 2.445 é o resultado correto. Cuidado ao pedir emprestado nas dezenas e centenas." data-tip="💡 Sacada: organize em coluna e subtraia da direita para a esquerda!">2.345 litros</button>
+  </div>
+  <div class="feedback" id="fb-q2"></div>
+</div>
+
+<!-- Q3 -->
+<div class="card" id="q3">
+  <div class="q-num">3</div><div class="q-type">Adição ou subtração?</div>
+  <div class="q-text">Uma loja tinha <strong>850</strong> produtos e recebeu mais <strong>320</strong> produtos. Quantos produtos a loja tem <strong>agora</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q3" data-correct="false" data-msg="Errado! A loja RECEBEU mais produtos — isso significa que ficou com mais, não menos!" data-tip="💡 Sacada: 'recebeu mais' = juntar = adição!">530 produtos</button>
+    <button class="opt-btn" data-q="q3" data-correct="true"  data-msg="Correto! 850 + 320 = 1.170 produtos. A loja recebeu mais, então soma!" data-tip="">1.170 produtos</button>
+    <button class="opt-btn" data-q="q3" data-correct="false" data-msg="Errado! Verifique: 850 + 320. Dezenas: 5+2=7, centenas: 8+3=11 (vai 1), fica 1.170!" data-tip="💡 Sacada: 8+3=11, anota 1 e vai 1 para os milhares → 1.170!">1.070 produtos</button>
+  </div>
+  <div class="feedback" id="fb-q3"></div>
+</div>
+
+<!-- Q4 -->
+<div class="card" id="q4">
+  <div class="q-num">4</div><div class="q-type">Identificar a operação</div>
+  <div class="q-text">A meta de doação era <strong>10.000</strong> brinquedos. Já foram arrecadados <strong>6.137</strong>. Quantos brinquedos ainda <strong>faltam</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q4" data-correct="false" data-msg="Errado! Você somou os valores. Mas a pergunta é 'quantos faltam' — o que falta é a diferença = subtração!" data-tip="💡 Sacada: 'faltam' = diferença entre a meta e o que já tem = subtração!">16.137 brinquedos</button>
+    <button class="opt-btn" data-q="q4" data-correct="false" data-msg="Errado! 10.000 − 6.137 ≠ 4.137. Cuidado com o empréstimo: 10.000 − 6.137 = 3.863!" data-tip="💡 Sacada: 10.000 tem zeros em todas as colunas — vai pedir emprestado em cadeia!">4.137 brinquedos</button>
+    <button class="opt-btn" data-q="q4" data-correct="true"  data-msg="Correto! 10.000 − 6.137 = 3.863 brinquedos ainda faltam!" data-tip="">3.863 brinquedos</button>
+    <button class="opt-btn" data-q="q4" data-correct="false" data-msg="Errado! O resultado correto é 3.863. Organize em coluna: 10.000 − 6.137." data-tip="💡 Sacada: começe pelas unidades — 0 não tira 7, pede emprestado!">3.963 brinquedos</button>
+  </div>
+  <div class="feedback" id="fb-q4"></div>
+</div>
+
+<!-- Q5 -->
+<div class="card" id="q5">
+  <div class="q-num">5</div><div class="q-type">Sistema Monetário</div>
+  <div class="q-text">Pedro recebeu <strong>R$ 25,00</strong> por um serviço. Qual combinação de cédulas representa esse valor?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q5" data-correct="false" data-msg="Errado! R$10 + R$10 + R$10 = R$30, não R$25." data-tip="💡 Sacada: some as cédulas e veja se o total é exatamente R$25!">3 cédulas de R$ 10</button>
+    <button class="opt-btn" data-q="q5" data-correct="true"  data-msg="Correto! R$20 + R$5 = R$25! É a forma mais simples de representar R$25." data-tip="">1 cédula de R$ 20 + 1 cédula de R$ 5</button>
+    <button class="opt-btn" data-q="q5" data-correct="false" data-msg="Errado! R$10 + R$5 = R$15, não R$25." data-tip="💡 Sacada: R$10 + R$5 = R$15. Faltam R$10 para chegar em R$25!">1 cédula de R$ 10 + 1 cédula de R$ 5</button>
+    <button class="opt-btn" data-q="q5" data-correct="false" data-msg="Errado! 5 cédulas de R$5 = R$25. Isso funciona também! Mas a opção mais simples é R$20+R$5." data-tip="💡 Sacada: R$5 × 5 = R$25 também daria certo, mas usa mais notas!">2 cédulas de R$ 20</button>
+  </div>
+  <div class="feedback" id="fb-q5"></div>
+</div>
+
+<!-- Q6 -->
+<div class="card" id="q6">
+  <div class="q-num">6</div><div class="q-type">Sistema Monetário</div>
+  <div class="q-text">Qual é o valor total de: <strong>1 cédula de R$50 + 1 cédula de R$20 + 1 cédula de R$10</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q6" data-correct="false" data-msg="Errado! R$50+R$20+R$10 ≠ R$70. Some tudo: 50+20=70, 70+10=80!" data-tip="💡 Sacada: some as cédulas uma a uma: 50+20=70, depois 70+10=80!">R$ 70,00</button>
+    <button class="opt-btn" data-q="q6" data-correct="true"  data-msg="Correto! R$50 + R$20 + R$10 = R$80,00!" data-tip="">R$ 80,00</button>
+    <button class="opt-btn" data-q="q6" data-correct="false" data-msg="Errado! R$50+R$20+R$10 ≠ R$90. Refaça: 50+20=70, 70+10=80!" data-tip="💡 Sacada: não adicione um zero a mais — são só 3 cédulas!">R$ 90,00</button>
+  </div>
+  <div class="feedback" id="fb-q6"></div>
+</div>
+
+<!-- Q7 -->
+<div class="card" id="q7">
+  <div class="q-num">7</div><div class="q-type">Reta numérica</div>
+  <div class="q-text">Na reta numérica, qual é o resultado de <strong>147 + 6</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q7" data-correct="false" data-msg="Errado! 147 + 6 ≠ 143. Para somar, andamos para a direita na reta, o número AUMENTA!" data-tip="💡 Sacada: adição = andar para a DIREITA na reta numérica!">143</button>
+    <button class="opt-btn" data-q="q7" data-correct="false" data-msg="Errado! 147 + 6 ≠ 158. Conte: 148, 149, 150, 151, 152, 153 — são 6 passos!" data-tip="💡 Sacada: conte 6 passos a partir do 147: 148, 149, 150, 151, 152, 153!">158</button>
+    <button class="opt-btn" data-q="q7" data-correct="true"  data-msg="Correto! 147 + 6 = 153. Na reta, damos 6 passos para a direita a partir do 147!" data-tip="">153</button>
+    <button class="opt-btn" data-q="q7" data-correct="false" data-msg="Errado! 147 + 6 ≠ 154. Cuidado ao contar os passos na reta!" data-tip="💡 Sacada: 147+1=148, +2=149, +3=150, +4=151, +5=152, +6=153!">154</button>
+  </div>
+  <div class="feedback" id="fb-q7"></div>
+</div>
+
+<!-- Q8 -->
+<div class="card" id="q8">
+  <div class="q-num">8</div><div class="q-type">Reta numérica</div>
+  <div class="q-text">Qual é o resultado de <strong>203 + 7</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q8" data-correct="false" data-msg="Errado! 203 + 7 ≠ 207. Some as unidades: 3+7=10, anota 0 e vai 1 para as dezenas → 210!" data-tip="💡 Sacada: 3+7=10 → anota 0 e vai 1 → resultado 210!">207</button>
+    <button class="opt-btn" data-q="q8" data-correct="true"  data-msg="Correto! 203 + 7 = 210. As unidades: 3+7=10, vai 1 para as dezenas!" data-tip="">210</button>
+    <button class="opt-btn" data-q="q8" data-correct="false" data-msg="Errado! 203 + 7 ≠ 200. Você subtraiu em vez de somar!" data-tip="💡 Sacada: 203 + 7 é uma adição — o resultado tem que ser MAIOR que 203!">200</button>
+  </div>
+  <div class="feedback" id="fb-q8"></div>
+</div>
+
+<!-- Q9 -->
+<div class="card" id="q9">
+  <div class="q-num">9</div><div class="q-type">Decomposição</div>
+  <div class="q-text">Qual é a decomposição correta do número <strong>3.595</strong>?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q9" data-correct="false" data-msg="Errado! 3.000+500+95 junta dezenas e unidades. O correto é separar tudo: 3.000+500+90+5!" data-tip="💡 Sacada: decompor = separar em milhares+centenas+dezenas+unidades!">3.000 + 500 + 95</button>
+    <button class="opt-btn" data-q="q9" data-correct="true"  data-msg="Correto! 3.595 = 3.000 + 500 + 90 + 5. Cada parte separada!" data-tip="">3.000 + 500 + 90 + 5</button>
+    <button class="opt-btn" data-q="q9" data-correct="false" data-msg="Errado! 3.000+500+9+5 = 3.514, não 3.595. As dezenas são 90, não 9!" data-tip="💡 Sacada: o 9 das dezenas vale 90 (9 × 10), não só 9!">3.000 + 500 + 9 + 5</button>
+  </div>
+  <div class="feedback" id="fb-q9"></div>
+</div>
+
+<!-- Q10 -->
+<div class="card" id="q10">
+  <div class="q-num">10</div><div class="q-type">Decomposição — adição</div>
+  <div class="q-text">Calcule usando decomposição: <strong>3.595 + 1.455 = ?</strong></div>
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:0.83rem;color:#1e3a5f;line-height:1.7;">
+    💡 <strong>Exemplo com outros números:</strong><br>
+    2.314 + 1.223 = ?<br>
+    2.314 → 2.000+300+10+4<br>
+    1.223 → 1.000+200+20+3<br>
+    2.000+1.000=3.000 · 300+200=500 · 10+20=30 · 4+3=7<br>
+    Resultado: 3.000+500+30+7 = <strong>3.537</strong> ✅
+  </div>
+  <div class="options">
+    <button class="opt-btn" data-q="q10" data-correct="false" data-msg="Errado! Some com atenção: 5+5=10(vai 1), 9+5+1=15(vai 1), 5+4+1=10(vai 1), 3+1+1=5. Resultado: 5.050!" data-tip="💡 Sacada: 3.000+1.000=4.000, 500+400=900, 90+50=140, 5+5=10. Some tudo: 5.050!">4.950</button>
+    <button class="opt-btn" data-q="q10" data-correct="true"  data-msg="Correto! 3.595 + 1.455 = 5.050! 3.000+1.000=4.000, 500+400=900, 90+50=140, 5+5=10. Total: 5.050!" data-tip="">5.050</button>
+    <button class="opt-btn" data-q="q10" data-correct="false" data-msg="Errado! 5.150 está errado. As dezenas: 90+50=140 → vai 1 para as centenas. Refaça com cuidado!" data-tip="💡 Sacada: 90+50=140, anota 40 e vai 1 para as centenas!">5.150</button>
+    <button class="opt-btn" data-q="q10" data-correct="false" data-msg="Errado! Cuidado com o 'vai um' nas dezenas. 90+50=140, não 100!" data-tip="💡 Sacada: organize em coluna e some da direita para a esquerda!">5.040</button>
+  </div>
+  <div class="feedback" id="fb-q10"></div>
+</div>
+
+<!-- Q11 -->
+<div class="card" id="q11">
+  <div class="q-num">11</div><div class="q-type">Situação-problema</div>
+  <div class="q-text">Jorge e Leonardo pesam juntos <strong>403 quilos</strong>. Leonardo pesa <strong>62 quilos</strong>. Quanto pesa Jorge?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q11" data-correct="false" data-msg="Errado! 403+62=465, mas a pergunta pede o peso de Jorge SOZINHO. Se juntos pesam 403 e Leonardo pesa 62, Jorge pesa 403−62!" data-tip="💡 Sacada: juntos = 403. Leonardo = 62. Jorge = 403 − 62!">465 quilos</button>
+    <button class="opt-btn" data-q="q11" data-correct="false" data-msg="Errado! 403 − 62 ≠ 331. Verifique: unidades 3−2=1, dezenas 0−6 (pede emprestado!) → 10−6=4, centenas 4−1=3. Resultado: 341!" data-tip="💡 Sacada: na dezena, 0 não tira 6 — precisa pedir emprestado da centena!">331 quilos</button>
+    <button class="opt-btn" data-q="q11" data-correct="true"  data-msg="Correto! 403 − 62 = 341 quilos. Jorge pesa 341 quilos!" data-tip="">341 quilos</button>
+    <button class="opt-btn" data-q="q11" data-correct="false" data-msg="Errado! 403 − 62 ≠ 351. Cuidado com o empréstimo: 0 não tira 6, pede emprestado da centena (4 vira 3), dezena vira 10, 10−6=4!" data-tip="💡 Sacada: 0 não tira 6 → pede emprestado. A centena 4 vira 3, a dezena 0 vira 10!">351 quilos</button>
+  </div>
+  <div class="feedback" id="fb-q11"></div>
+</div>
+
+<!-- Q12 -->
+<div class="card" id="q12">
+  <div class="q-num">12</div><div class="q-type">Situação-problema</div>
+  <div class="q-text">Anderson tem <strong>308</strong> carrinhos. Seu irmão tem <strong>214</strong>. Quantos carrinhos <strong>faltam</strong> para o irmão ter a mesma quantidade?</div>
+  <div class="options">
+    <button class="opt-btn" data-q="q12" data-correct="false" data-msg="Errado! 308+214=522, mas isso seria o total dos dois juntos. A pergunta pede a DIFERENÇA entre as coleções!" data-tip="💡 Sacada: 'faltam' = diferença = subtração!">522 carrinhos</button>
+    <button class="opt-btn" data-q="q12" data-correct="false" data-msg="Errado! 308−214 ≠ 104. Verifique: unidades 8−4=4, dezenas 0−1 (pede emprestado!) → 10−1=9... espera, 10−1=9. Centenas 3−1−1(emprestou)=1... Resultado: 94!" data-tip="💡 Sacada: unidades 8−4=4, dezenas: 0 pede emprestado → 10−1=9, centenas: 3−1−1=1. Resultado: 94!">104 carrinhos</button>
+    <button class="opt-btn" data-q="q12" data-correct="true"  data-msg="Correto! 308 − 214 = 94 carrinhos faltam para o irmão!" data-tip="">94 carrinhos</button>
+    <button class="opt-btn" data-q="q12" data-correct="false" data-msg="Errado! 308−214 ≠ 84. Cuidado com as dezenas: 0 pede emprestado da centena, vira 10. 10−1=9, não 8!" data-tip="💡 Sacada: dezenas — 0 pede emprestado da centena (3 vira 2), fica 10−1=9!">84 carrinhos</button>
+  </div>
+  <div class="feedback" id="fb-q12"></div>
+</div>
+
+<button class="finish-btn" id="finishBtn">Ver meu resultado 🎉</button>
+
+<div class="result-panel" id="resultPanel">
+  <div class="result-big" id="resultEmoji">🎉</div>
+  <div class="result-grade" id="resultGrade"></div>
+  <div class="result-grade-label">pontos</div>
+  <div class="result-grade-pts" id="resultGradePts"></div>
+  <div class="result-msg" id="resultMsg"></div>
+  <div class="result-score" id="resultScore"></div>
+  <div class="result-actions">
+    <button class="retry-btn" onclick="location.reload()">Tentar de novo 🔄</button>
+    <a href="gabarito.html" class="gabarito-link">📋 Ver Gabarito</a>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="resumo_conteudo.html" class="btn-prev">← Resumo</a>
+  <a href="index.html" class="btn-home-only">🏠</a>
+  <a href="nivel2_intermediario.html" class="btn-next">🔥 Nível 2 →</a>
+</div>
+</div>
+<div class="credit">Desenvolvido por <strong>Jhony Beraldo</strong></div>
+
+<script>
+var score = 0, answered = {}, total = 12;
+document.querySelectorAll('.opt-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var qid = btn.dataset.q;
+    if (answered[qid]) return;
+    answered[qid] = true;
+    var correct = btn.dataset.correct === 'true';
+    document.getElementById(qid).querySelectorAll('.opt-btn').forEach(function(b) { b.classList.add('disabled'); });
+    var fb = document.getElementById('fb-' + qid);
+    if (correct) {
+      btn.classList.add('correct'); score++;
+      document.getElementById('scoreDisplay').textContent = score + ' / ' + total;
+      fb.innerHTML = '<span class="fb-answer">✅ ' + btn.dataset.msg + '</span>';
+      fb.className = 'feedback show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.innerHTML = '<span class="fb-answer">❌ ' + btn.dataset.msg + '</span><span class="fb-tip">' + btn.dataset.tip + '</span>';
+      fb.className = 'feedback show nok';
+    }
+  });
+});
+document.getElementById('finishBtn').addEventListener('click', function() {
+  var panel = document.getElementById('resultPanel');
+  panel.classList.add('show');
+  var pct = Math.round((score / total) * 100);
+  var emoji, msg, label;
+  if (pct === 100)    { emoji='🏆'; msg='Incrível! Nota máxima! Você é um craque da Matemática! 🌟'; label='PERFEITO!'; }
+  else if (pct >= 90) { emoji='🎉'; msg='Arrasou! Quase perfeito, continue assim! 💪'; label='EXCELENTE!'; }
+  else if (pct >= 75) { emoji='😄'; msg='Muito bem! Você está dominando! 🎯'; label='MUITO BOM!'; }
+  else if (pct >= 60) { emoji='😊'; msg='Bom trabalho! Revise as dicas e tente de novo!'; label='BOM!'; }
+  else if (pct >= 40) { emoji='💪'; msg='Continue tentando! Estude o resumo e vai arrasar!'; label='PODE MAIS!'; }
+  else                { emoji='📚'; msg='Não desista! Leia o resumo e tente novamente! 💛'; label='ESTUDE MAIS!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultGrade').textContent = score + ' / ' + total;
+  document.getElementById('resultGradePts').textContent = pct + '% de aproveitamento';
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultScore').textContent = label;
+  panel.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
